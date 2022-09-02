@@ -20,6 +20,14 @@ function App() {
     setShoppingCart([item, ...shoppingCart]);
   }
 
+  function removeItem(item) {
+    setShoppingCart(
+      shoppingCart.filter((shoppingItem) => {
+        return item.id !== shoppingItem.id;
+      })
+    );
+  }
+
   const apiURL = "https://pokeapi.co/api/v2/item/";
 
   useEffect(() => {
@@ -51,7 +59,12 @@ function App() {
         ></Route>
         <Route
           path="/shopping-cart"
-          element={<ShoppingCart shoppingCart={shoppingCart} />}
+          element={
+            <ShoppingCart
+              shoppingCart={shoppingCart}
+              onRemoveItem={removeItem}
+            />
+          }
         ></Route>
       </Routes>
     </>
