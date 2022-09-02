@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 export default function FetchedItem({ item, onAddItem, isOnList }) {
   const [itemInfo, setItemInfo] = useState({});
@@ -31,15 +32,29 @@ export default function FetchedItem({ item, onAddItem, isOnList }) {
   }
 
   return (
-    <>
+    <ItemCard>
       {" "}
-      <li>
-        <img alt="" src={itemInfo.sprites?.default} />
-        {itemInfo.cost && <span>{itemInfo.cost}</span>}
+      <ListItem>
+        <div>
+          <img alt="" src={itemInfo.sprites?.default} />
+          {item.name}
+        </div>
+        {itemInfo.cost && <span>{itemInfo.cost} ¥</span>}
         {itemInfo.category && <p>{itemInfo.category.name}</p>}
-        {item.name}
-      </li>
+      </ListItem>
       {!isOnList && <button onClick={handleClick}>Add to cart</button>}
-    </>
+    </ItemCard>
   );
 }
+
+const ItemCard = styled.article`
+  padding: 1rem;
+  border: solid white 4px;
+  border-radius: 14px;
+`;
+
+const ListItem = styled.li`
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+`;

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import styled from "styled-components";
+
 import Home from "./components/Home/Home";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 
-function App() {
+export default function App() {
   const [pokeItems, setPokeItems] = useState([]);
   const [shoppingCart, setShoppingCart] = useState([]);
 
@@ -45,7 +47,7 @@ function App() {
 
   return (
     <>
-      <h1>Poke Mart</h1>
+      <AppHeader>Poke Mart</AppHeader>
       <Routes>
         <Route
           path="/"
@@ -71,4 +73,6 @@ function App() {
   );
 }
 
-export default App;
+const AppHeader = styled.h1`
+  text-align: center;
+`;
