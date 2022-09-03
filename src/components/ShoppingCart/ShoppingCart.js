@@ -35,9 +35,9 @@ export default function ShoppingCart({ shoppingCart, onRemoveItem }) {
         </tbody>
         <Sum>{result} ¥</Sum>
       </Table>
-      <div style={{ textAlign: "center" }}>
+      <ButtonWrapper>
         <Button>Buy Now</Button>
-      </div>
+      </ButtonWrapper>
       <Navigation>
         <Link to="/">Back to Shop</Link>
       </Navigation>
@@ -54,6 +54,7 @@ const Table = styled.table`
   text-align: left;
   position: relative;
   margin-bottom: 2rem;
+  font-size: large;
 `;
 
 const Sum = styled.p`
@@ -61,6 +62,10 @@ const Sum = styled.p`
   position: absolute;
   right: 3rem;
   bottom: -2rem;
+`;
+
+const ButtonWrapper = styled.div`
+  text-align: center;
 `;
 
 const Button = styled.button`

@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 export default function CartItem({ cartItem, index, onRemoveItem }) {
   return (
     <tr>
@@ -10,8 +12,13 @@ export default function CartItem({ cartItem, index, onRemoveItem }) {
       <td>{cartItem.quantity}x</td>
       <td>{cartItem.cost * cartItem.quantity} ¥</td>
       <td>
-        <button onClick={() => onRemoveItem(cartItem)}>X</button>
+        <Button onClick={() => onRemoveItem(cartItem)}>X</Button>
       </td>
     </tr>
   );
 }
+
+const Button = styled.button`
+  border: none;
+  color: red;
+`;
