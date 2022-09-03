@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function FetchedItem({ item, onAddItem, isOnList }) {
+export default function FetchedItem({
+  item,
+  onAddItem,
+  isOnList,
+  onIncreaseAmount,
+  onDecreaseAmount,
+  amount,
+}) {
   const [itemInfo, setItemInfo] = useState({});
 
   useEffect(() => {
@@ -30,16 +37,35 @@ export default function FetchedItem({ item, onAddItem, isOnList }) {
     onAddItem(updatedItem);
   }
 
+  let actionButton = "";
+
+  if (isOnList) {
+    actionButton = (
+      <ButtonWrapper>
+        {" "}
+        <AmountChangeButton onClick={() => onIncreaseAmount(itemInfo.id)}>
+          +
+        </AmountChangeButton>
+        <p>Cart: {amount}</p>
+        <AmountChangeButton onClick={() => onDecreaseAmount(itemInfo.id)}>
+          -
+        </AmountChangeButton>
+      </ButtonWrapper>
+    );
+  } else {
+    actionButton = <Button onClick={handleClick}>Add to cart</Button>;
+  }
+
   return (
     <ItemCard>
       {" "}
       <ListItem>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <ImageWrapper>
           <img alt="" src={itemInfo.sprites?.default} />
           {item.name}
-        </div>
+        </ImageWrapper>
         {itemInfo.cost && <span>{itemInfo.cost} ¥</span>}
-        {!isOnList && <Button onClick={handleClick}>Add to cart</Button>}
+        {actionButton}
       </ListItem>
     </ItemCard>
   );
@@ -49,6 +75,7 @@ const ItemCard = styled.article`
   padding: 1rem;
   border: solid white 4px;
   border-radius: 14px;
+  font-size: large;
 `;
 
 const ListItem = styled.li`
@@ -59,9 +86,29 @@ const ListItem = styled.li`
   align-items: center;
 `;
 
+const ImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const Button = styled.button`
   padding: 0.7rem;
   background-color: violet;
   border: none;
   border-radius: 14px;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+`;
+
+const AmountChangeButton = styled.button`
+  border: none;
+  background-color: violet;
+  border-radius: 14px;
+  padding: 0.5rem;
 `;

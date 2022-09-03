@@ -3,7 +3,13 @@ import styled from "styled-components";
 
 import FetchedItem from "../FetchedItem/FetchedItem";
 
-export default function Home({ pokeItems, onAddItem, shoppingCart }) {
+export default function Home({
+  pokeItems,
+  onAddItem,
+  shoppingCart,
+  onIncreaseAmount,
+  onDecreaseAmount,
+}) {
   return (
     <main>
       {" "}
@@ -17,6 +23,13 @@ export default function Home({ pokeItems, onAddItem, shoppingCart }) {
               key={item.name}
               item={item}
               onAddItem={onAddItem}
+              onIncreaseAmount={onIncreaseAmount}
+              onDecreaseAmount={onDecreaseAmount}
+              amount={
+                shoppingCart.filter((pokeItem) => {
+                  return pokeItem.id === item.id;
+                })[0]?.quantity
+              }
               isOnList={shoppingCart.find((pokeItem) => {
                 return item.id === pokeItem.id;
               })}

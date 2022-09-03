@@ -34,6 +34,34 @@ export default function App() {
     );
   }
 
+  function increaseAmount(id) {
+    setShoppingCart(
+      shoppingCart.map((item) => {
+        if (item.id === id) {
+          return { ...item, quantity: item.quantity + 1 };
+        } else {
+          return item;
+        }
+      })
+    );
+  }
+
+  function decreaseAmount(id) {
+    setShoppingCart(
+      shoppingCart
+        .map((item) => {
+          if (item.id === id) {
+            return { ...item, quantity: item.quantity - 1 };
+          } else {
+            return item;
+          }
+        })
+        .filter((item) => {
+          return item.quantity !== 0;
+        })
+    );
+  }
+
   const apiURL = "https://pokeapi.co/api/v2/item/";
 
   useEffect(() => {
@@ -64,6 +92,8 @@ export default function App() {
               onAddItem={addItem}
               pokeItems={pokeItems}
               shoppingCart={shoppingCart}
+              onIncreaseAmount={increaseAmount}
+              onDecreaseAmount={decreaseAmount}
             />
           }
         ></Route>

@@ -4,7 +4,8 @@ import CartItem from "../CartItem/CartItem";
 
 export default function ShoppingCart({ shoppingCart, onRemoveItem }) {
   const result = shoppingCart.reduce(
-    (previousvalue, currentValue) => previousvalue + currentValue.cost,
+    (previousvalue, currentValue) =>
+      previousvalue + currentValue.cost * currentValue.quantity,
     0
   );
 
@@ -33,7 +34,12 @@ export default function ShoppingCart({ shoppingCart, onRemoveItem }) {
             );
           })}
         </tbody>
-        <Sum>{result} ¥</Sum>
+        <tfoot>
+          <tr>
+            <th colSpan={5}>Total: </th>
+            <Sum>{result} ¥</Sum>
+          </tr>
+        </tfoot>
       </Table>
       <ButtonWrapper>
         <Button>Buy Now</Button>
@@ -52,16 +58,12 @@ const CartHeader = styled.h2`
 const Table = styled.table`
   width: 100%;
   text-align: left;
-  position: relative;
   margin-bottom: 2rem;
   font-size: large;
 `;
 
-const Sum = styled.p`
+const Sum = styled.td`
   border-top: 2px solid black;
-  position: absolute;
-  right: 3rem;
-  bottom: -2rem;
 `;
 
 const ButtonWrapper = styled.div`
