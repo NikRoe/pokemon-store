@@ -42,13 +42,12 @@ export default function FetchedItem({
   if (isOnList) {
     actionButton = (
       <ButtonWrapper>
-        {" "}
-        <AmountChangeButton onClick={() => onIncreaseAmount(itemInfo.id)}>
-          +
-        </AmountChangeButton>
-        <p>Cart: {amount}</p>
         <AmountChangeButton onClick={() => onDecreaseAmount(itemInfo.id)}>
           -
+        </AmountChangeButton>
+        <p>Cart: {amount}</p>
+        <AmountChangeButton onClick={() => onIncreaseAmount(itemInfo.id)}>
+          +
         </AmountChangeButton>
       </ButtonWrapper>
     );
