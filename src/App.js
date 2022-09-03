@@ -9,6 +9,10 @@ export default function App() {
   const [pokeItems, setPokeItems] = useState([]);
   const [shoppingCart, setShoppingCart] = useState([]);
 
+  function capitalizeText(string) {
+    return (string.charAt(0).toUpperCase() + string.slice(1)).replace("-", "");
+  }
+
   function addItem(item) {
     setPokeItems(
       pokeItems.map((pokeItem) => {
@@ -37,7 +41,11 @@ export default function App() {
       try {
         const response = await fetch(apiURL);
         const data = await response.json();
-        setPokeItems(data.results);
+        setPokeItems(
+          data.results.map((item) => {
+            return { name: capitalizeText(item.name), url: item.url };
+          })
+        );
       } catch (error) {
         console.error(error);
       }
@@ -47,7 +55,7 @@ export default function App() {
 
   return (
     <>
-      <AppHeader>Poke Mart</AppHeader>
+      <AppHeader>Poké-Mart-Online-Shop</AppHeader>
       <Routes>
         <Route
           path="/"
@@ -75,4 +83,5 @@ export default function App() {
 
 const AppHeader = styled.h1`
   text-align: center;
+  margin-bottom: 4rem;
 `;

@@ -1,13 +1,17 @@
 export default function CartItem({ cartItem, index, onRemoveItem }) {
   return (
-    <li>
-      <span>{index + 1}.</span>
-      <img alt="" src={cartItem.image} />
-      {cartItem.name}
-      <p>{cartItem.cost} ¥</p>
-      <p>{cartItem.quantity}x</p>
-      <p>{cartItem.cost * cartItem.quantity} ¥</p>
-      <button onClick={() => onRemoveItem(cartItem)}>X</button>
-    </li>
+    <tr>
+      <td>{index + 1}.</td>
+      <td>
+        <img alt="" src={cartItem.image} />
+      </td>
+      <td>{cartItem.name}</td>
+      <td>{cartItem.cost} ¥</td>
+      <td>{cartItem.quantity}x</td>
+      <td>{cartItem.cost * cartItem.quantity} ¥</td>
+      <td>
+        <button onClick={() => onRemoveItem(cartItem)}>X</button>
+      </td>
+    </tr>
   );
 }

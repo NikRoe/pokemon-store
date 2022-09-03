@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -20,7 +19,7 @@ export default function FetchedItem({ item, onAddItem, isOnList }) {
 
   function handleClick() {
     const updatedItem = {
-      id: nanoid(),
+      id: itemInfo.id,
       name: item.name,
       image: itemInfo.sprites.default,
       cost: itemInfo.cost,
@@ -35,14 +34,13 @@ export default function FetchedItem({ item, onAddItem, isOnList }) {
     <ItemCard>
       {" "}
       <ListItem>
-        <div>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <img alt="" src={itemInfo.sprites?.default} />
           {item.name}
         </div>
         {itemInfo.cost && <span>{itemInfo.cost} ¥</span>}
-        {itemInfo.category && <p>{itemInfo.category.name}</p>}
+        {!isOnList && <Button onClick={handleClick}>Add to cart</Button>}
       </ListItem>
-      {!isOnList && <button onClick={handleClick}>Add to cart</button>}
     </ItemCard>
   );
 }
@@ -57,4 +55,13 @@ const ListItem = styled.li`
   list-style: none;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+`;
+
+const Button = styled.button`
+  padding: 0.7rem;
+  background-color: violet;
+  border: none;
+  border-radius: 14px;
 `;
