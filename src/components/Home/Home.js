@@ -14,7 +14,14 @@ export default function Home({
     <main>
       {" "}
       <Navigation>
-        <Link to="shopping-cart">Items in Cart: {shoppingCart.length}</Link>
+        <Link to="shopping-cart">
+          Items in Cart:{" "}
+          {shoppingCart.reduce(
+            (previousValue, currentValue) =>
+              previousValue + currentValue.quantity,
+            0
+          )}
+        </Link>
       </Navigation>
       <ItemWrapper>
         {pokeItems.map((item) => {

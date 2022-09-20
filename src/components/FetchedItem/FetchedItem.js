@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 export default function FetchedItem({
   item,
@@ -37,19 +38,39 @@ export default function FetchedItem({
     onAddItem(updatedItem);
   }
 
-  let actionButton = "";
+  let actionButton = '';
 
   if (isOnList) {
     actionButton = (
-      <ButtonWrapper>
-        <AmountChangeButton onClick={() => onDecreaseAmount(itemInfo.id)}>
-          -
-        </AmountChangeButton>
-        <p>Cart: {amount}</p>
-        <AmountChangeButton onClick={() => onIncreaseAmount(itemInfo.id)}>
-          +
-        </AmountChangeButton>
-      </ButtonWrapper>
+      <>
+        <ButtonWrapper>
+          <AmountChangeButton onClick={() => onDecreaseAmount(itemInfo.id)}>
+            -
+          </AmountChangeButton>
+          <AmountChangeButton onClick={() => onIncreaseAmount(itemInfo.id)}>
+            +
+          </AmountChangeButton>
+        </ButtonWrapper>
+        <div
+          style={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'space-between',
+          }}
+        >
+          In Cart:
+          <AnimatePresence>
+            <motion.span
+              initial={{ y: -40, opacity: 0, position: 'absolute' }}
+              animate={{ y: 0, opacity: 1, position: 'static' }}
+              transition={{ delay: 0.1 }}
+              key={amount}
+            >
+              {amount}
+            </motion.span>
+          </AnimatePresence>
+        </div>
+      </>
     );
   } else {
     actionButton = <Button onClick={handleClick}>Add to cart</Button>;
@@ -57,13 +78,26 @@ export default function FetchedItem({
 
   return (
     <ItemCard>
-      {" "}
+      {' '}
       <ListItem>
         <ImageWrapper>
-          <img alt="" src={itemInfo.sprites?.default} />
-          {item.name}
+          <img
+            alt=""
+            src={itemInfo.sprites?.default}
+            style={{ imageRendering: 'pixelated', height: '80px' }}
+          />
         </ImageWrapper>
-        {itemInfo.cost && <span>{itemInfo.cost} ¥</span>}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}
+        >
+          <span>{item.name}</span>
+          {itemInfo.cost && itemInfo.cost}
+          <span>¥</span>
+        </div>
         {actionButton}
       </ListItem>
     </ItemCard>
@@ -100,7 +134,6 @@ const Button = styled.button`
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 0.2rem;
-  align-items: center;
   justify-content: space-around;
   width: 100%;
 `;
